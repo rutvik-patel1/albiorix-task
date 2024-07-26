@@ -54,7 +54,6 @@ export const useTaskStore = defineStore("task", {
       if (Object.values(FILTERS).includes(filter)) {
         this.filter = filter;
       } else {
-        console.warn(`Invalid filter: ${filter}`);
         this.filter = FILTERS.ALL;
       }
     },
