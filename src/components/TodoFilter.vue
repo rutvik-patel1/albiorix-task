@@ -1,35 +1,38 @@
 <template>
   <div class="todo-filter">
-    <select
-      v-model="filter"
-      @change="$emit('filter-change', $event.target.value)"
-      class="filter-select"
-    >
-      <option :value="FILTERS.ALL">All Tasks</option>
-      <option :value="FILTERS.COMPLETED">Completed Tasks</option>
-      <option :value="FILTERS.PENDING">Pending Tasks</option>
-    </select>
-    <input
-      v-model="searchQuery"
-      :placeholder="`Search ${filter} tasks...`"
-      class="search-input"
-      @input="handleSearch"
-    />
-    <TodoForm></TodoForm>
+    <div class="filter-row">
+      <select
+        v-model="filter"
+        @change="$emit('filter-change', $event.target.value)"
+        class="filter-select"
+      >
+        <option :value="FILTERS.ALL">All Tasks</option>
+        <option :value="FILTERS.COMPLETED">Completed Tasks</option>
+        <option :value="FILTERS.PENDING">Pending Tasks</option>
+      </select>
+      <input
+        v-model="searchQuery"
+        :placeholder="`Search ${filter} tasks...`"
+        class="search-input"
+        @input="handleSearch"
+      />
+      <TodoForm></TodoForm>
+    </div>
   </div>
 </template>
 
 <script>
 import { ref, watch } from "vue";
 import { FILTERS } from "@/utils/filters";
-import TodoForm from './TodoForm.vue'
+import TodoForm from "./TodoForm.vue";
+
 export default {
   name: "TodoFilter",
   components: { TodoForm },
   emits: ["filter-change", "search-change"],
   setup(props, { emit }) {
     const searchQuery = ref("");
-    const filter = ref(FILTERS.ALL)
+    const filter = ref(FILTERS.ALL);
 
     const handleSearch = () => {
       if (searchQuery.value.length > 2 || searchQuery.value.length === 0) {
@@ -51,7 +54,13 @@ export default {
 <style scoped>
 .todo-filter {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .filter-select,
@@ -62,10 +71,24 @@ export default {
 }
 
 .filter-select {
-  margin-right: 10px;
+  flex: 1;
+  min-width: 150px;
 }
 
 .search-input {
-  flex-grow: 1;
+  flex: 2;
+  min-width: 200px;
+}
+
+@media (max-width: 768px) {
+  .filter-row {
+    flex-direction: column;
+  }
+
+  .filter-select,
+  .search-input {
+    width: 100%;
+    width: -webkit-fill-available;
+  }
 }
 </style>

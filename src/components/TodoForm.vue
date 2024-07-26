@@ -84,7 +84,6 @@ export default {
   color: white;
   border: none;
   padding: 10px 20px;
-  margin: 0 10px;
   cursor: pointer;
   border-radius: 4px;
 }

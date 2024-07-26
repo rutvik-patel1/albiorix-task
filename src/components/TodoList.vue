@@ -109,6 +109,15 @@ export default {
   justify-content: space-between;
 }
 
+@media (max-width: 768px) {
+  .todo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
 .todo-item:hover {
   background-color: #e7e7e7;
 }
